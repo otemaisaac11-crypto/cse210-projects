@@ -31,8 +31,8 @@ class Program
 
                 Entry entry = new Entry();
                 entry._date = DateTime.Now.ToShortDateString();
-                entry._promptText = prompt;
-                entry._entryText = response;
+                entry._prompt = prompt;
+                entry._response = response;
 
                 journal.AddEntry(entry);
             }
