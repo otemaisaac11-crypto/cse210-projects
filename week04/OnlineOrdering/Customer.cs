@@ -3,16 +3,16 @@ public class Customer
     private string _name;
     private Address _address;
 
-    public Customer(string name, string address)
+    public Customer(string name, Address address)
     {
         _name = name;
-        _address = new Address(address);
+        _address = address;
     
     }
 
     public bool IsInUSA()
     {
-        return _addresss.IsInUSA();
+        return _address.IsInUSA();
     }
 
     public string GetName()
