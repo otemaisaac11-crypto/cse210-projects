@@ -1,9 +1,37 @@
 using System;
+using System.Collections.Generic;   
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World! This is the Shapes Project.");
+        Square square = new Square("Red", 5);
+        Console.WriteLine($"Square color: {square.GetColor()}");
+        Console.WriteLine($"Square area: {square.GetArea()}");
+
+
+        Rectangle rectangle = new Rectangle("Blue", 5, 8);
+        Console.WriteLine($"Rectangle color: {rectangle.GetColor()}");
+        Console.WriteLine($"Rectangle area: {rectangle.GetArea()}");
+
+        Circle circle = new Circle("Green", 4);
+        Console.WriteLine($"Circle color: {circle.GetColor()}");
+        Console.WriteLine($"Circlearea: {circle.GetArea()}");
+    
+
+    
+        List<Shape> shapes = new List<Shape>();
+        shapes.Add(new Square("Red", 5));
+        shapes.Add(new Rectangle("Blue", 5, 8));
+        shapes.Add(new Circle("Green", 4));
+
+        foreach (Shape shape in shapes)
+        {
+            Console.WriteLine($"Shape color: {shape.GetColor()}");
+            Console.WriteLine($"Shape area: {shape.GetArea()}");    
+        }
     }
+
+
+
 }
