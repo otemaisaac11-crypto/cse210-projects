@@ -1,15 +1,12 @@
-using System;
-
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name, string description, int points) 
-        : base(name, description, points)
+    public EternalGoal(string name, string description, int points) : base(name, description, points)
     {
     }
 
     public override int RecordEvent()
     {
-        return _points; // Always gives points, never completes
+        return _points;
     }
 
     public override string GetDetailsString()

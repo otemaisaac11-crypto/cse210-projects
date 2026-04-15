@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        GoalManager manager = new GoalManager();
+        var manager = new GoalManager();
 
         while (true)
         {
@@ -13,112 +13,70 @@ class Program
             Console.WriteLine("2. Record Event");
             Console.WriteLine("3. Show Goals");
             Console.WriteLine("4. Show Score");
-            Console.WriteLine("5. Quit");
-            Console.WriteLine("6. Save Goals");
-            Console.WriteLine("7. Load Goals");
+            Console.WriteLine("5. Save Goals");
+            Console.WriteLine("6. Load Goals");
+            Console.WriteLine("7. Quit");
             Console.Write("Choose an option: ");
 
-            string choice = Console.ReadLine();
-
-            if (choice == "1")
+            switch (Console.ReadLine())
             {
-                CreateGoal(manager);
-            }
-            else if (choice == "2")
-            {
-                RecordEvent(manager);
-            }
-            else if (choice == "3")
-            {
-                manager.DisplayGoals();
-            }
-            else if (choice == "4")
-            {
-                manager.DisplayScore();
-            }
-            else if (choice == "5")
-            {
-                break;
-            }
-            else if (choice == "6")
-            {
-                manager.SaveGoals();
-                Console.WriteLine("Goals saved!");
-            }
-            else if (choice == "7")
-            {
-                manager.LoadGoals();
-                Console.WriteLine("Goals loaded!");
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice. Please enter a number from 1 to 7.");
+                case "1": CreateGoal(manager); break;
+                case "2": RecordEvent(manager); break;
+                case "3": manager.DisplayGoals(); break;
+                case "4": manager.DisplayScore(); break;
+                case "5": manager.SaveGoals(); Console.WriteLine("Goals saved!"); break;
+                case "6": manager.LoadGoals(); Console.WriteLine("Goals loaded!"); break;
+                case "7": return;
+                default: Console.WriteLine("Please enter a number from 1 to 7."); break;
             }
         }
     }
 
     static void CreateGoal(GoalManager manager)
     {
-        Console.WriteLine("Choose goal type:");
         Console.WriteLine("1. Simple Goal");
         Console.WriteLine("2. Eternal Goal");
         Console.WriteLine("3. Checklist Goal");
-        Console.Write("Type: ");
-        string goalType = Console.ReadLine();
+        Console.Write("Choose goal type: ");
+        string type = Console.ReadLine();
 
-        Console.Write("Goal name: ");
+        Console.Write("Name: ");
         string name = Console.ReadLine();
-        Console.Write("Goal description: ");
+        Console.Write("Description: ");
         string description = Console.ReadLine();
-        Console.Write("Goal points: ");
+        Console.Write("Points: ");
         int points = int.Parse(Console.ReadLine() ?? "0");
 
-        if (goalType == "1")
-        {
+        if (type == "1")
             manager.AddGoal(new SimpleGoal(name, description, points));
-        }
-        else if (goalType == "2")
-        {
+        else if (type == "2")
             manager.AddGoal(new EternalGoal(name, description, points));
-        }
-        else if (goalType == "3")
+        else if (type == "3")
         {
             Console.Write("Target count: ");
-            int targetCount = int.Parse(Console.ReadLine() ?? "0");
+            int target = int.Parse(Console.ReadLine() ?? "0");
             Console.Write("Bonus points: ");
             int bonus = int.Parse(Console.ReadLine() ?? "0");
-            manager.AddGoal(new ChecklistGoal(name, description, points, targetCount, bonus));
+            manager.AddGoal(new ChecklistGoal(name, description, points, target, bonus));
         }
         else
-        {
-            Console.WriteLine("Unknown goal type. Goal not created.");
-            return;
-        }
-
-        Console.WriteLine("Goal created successfully!\n");
+            Console.WriteLine("Invalid goal type.");
     }
 
     static void RecordEvent(GoalManager manager)
     {
         if (manager.GoalCount == 0)
         {
-            Console.WriteLine("No goals available. Create one first.");
+            Console.WriteLine("No goals yet.");
             return;
         }
 
-        Console.WriteLine("Select a goal to record an event for:");
-        manager.DisplayGoalsWithIndexes();
-        Console.Write("Enter goal number: ");
-        string input = Console.ReadLine();
-
-        if (int.TryParse(input, out int goalNumber) && goalNumber >= 1 && goalNumber <= manager.GoalCount)
-        {
-            manager.RecordEvent(goalNumber - 1);
-        }
+        manager.DisplayGoals();
+        Console.Write("Goal number: ");
+        if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= manager.GoalCount)
+            manager.RecordEvent(number - 1);
         else
-        {
-            Console.WriteLine("Invalid goal selection.");
-        }
+            Console.WriteLine("Invalid number.");
     }
 }
 
