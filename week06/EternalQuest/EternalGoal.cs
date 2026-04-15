@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+
 public class EternalGoal : Goal
 {
     public EternalGoal(string name, string description, int points) 
@@ -15,5 +15,10 @@ public class EternalGoal : Goal
     public override string GetDetailsString()
     {
         return $"[ ] {_name} ({_description})";
+    }
+
+    public override string Serialize()
+    {
+        return $"EternalGoal|{_name}|{_description}|{_points}";
     }
 }

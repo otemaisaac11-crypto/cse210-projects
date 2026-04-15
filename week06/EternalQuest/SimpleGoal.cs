@@ -4,7 +4,11 @@ public class SimpleGoal : Goal
 
     public SimpleGoal(string name, string description, int points) : base(name, description, points)
     {
-        
+    }
+
+    public SimpleGoal(string name, string description, int points, bool isComplete) : base(name, description, points)
+    {
+        _isComplete = isComplete;
     }
 
     public override int RecordEvent()
@@ -28,6 +32,8 @@ public class SimpleGoal : Goal
         return _isComplete;
     }
 
-
-
+    public override string Serialize()
+    {
+        return $"SimpleGoal|{_name}|{_description}|{_points}|{_isComplete}";
+    }
 }
