@@ -61,7 +61,8 @@ class Program
     {
         Console.WriteLine("Choose goal type:");
         Console.WriteLine("1. Simple Goal");
-        Console.WriteLine("2. Checklist Goal");
+        Console.WriteLine("2. Eternal Goal");
+        Console.WriteLine("3. Checklist Goal");
         Console.Write("Type: ");
         string goalType = Console.ReadLine();
 
@@ -77,6 +78,10 @@ class Program
             manager.AddGoal(new SimpleGoal(name, description, points));
         }
         else if (goalType == "2")
+        {
+            manager.AddGoal(new EternalGoal(name, description, points));
+        }
+        else if (goalType == "3")
         {
             Console.Write("Target count: ");
             int targetCount = int.Parse(Console.ReadLine() ?? "0");
